@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.presentation.search.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,7 +28,9 @@ class SearchViewModel(
     val placeholderStatusData get() = placeholderStatusMutable
     private var latestSearchText: String? = null
     private var page: Int = 0
-    private var pages = 1
+    private var maxPages: Int? = null
+    private var vacanciesList = mutableListOf<Vacancy>()
+    private var isNextPageLoading: Boolean = false
 
     fun setPlaceholder(placeholdersEnum: PlaceholdersEnum) {
         placeholderStatusMutable.value = placeholdersEnum
@@ -35,6 +38,7 @@ class SearchViewModel(
 
     fun searchDebounce(changedText: String) {
         if (latestSearchText != changedText) {
+            vacanciesList.clear()//Очищаем список найденных при новом поиске
             latestSearchText = changedText
             vacancySearchDebounce(changedText)
         }
@@ -48,7 +52,7 @@ class SearchViewModel(
         searchVacancy(changedText, 0)
     }
 
-    private fun searchVacancy(changedText: String, page: Int) {
+    private fun searchVacancy(changedText: String, page: Int = 0) {
         if (changedText.isNotEmpty()) {
             stateLiveData.postValue(SearchState.Loading)
             setPlaceholder(PlaceholdersEnum.SHOW_PROGRESS_CENTER)
@@ -57,7 +61,7 @@ class SearchViewModel(
                     .searchVacancies(
                         VacancyRequest(
                             changedText,
-                            area = "113",
+                            area = null,
                             showSalary = true,
                             industry = "49",
                             salary = 100_000,
@@ -66,29 +70,33 @@ class SearchViewModel(
                     )
                     .collect { pair ->
                         processResult(pair.first, pair.second, searchInteractor.foundItems)
+                        maxPages = searchInteractor.pages
+                        Log.i("processResult", "searchVacancy Maxpages $maxPages ")
+                        Log.i("processResult", "searchVacancy foundItems ${searchInteractor.foundItems}")
+
                     }
+
             }
         }
     } // ToDo Протестить , заменить часть параметров VacancyRequest на Фильтр")
 
     private fun processResult(foundVacancies: List<Vacancy>?, errorMessage: String?, foundItems: Int?) {
+        Log.i("processResult", "foundItems $foundItems")
         val vacancyList = mutableListOf<Vacancy>()
         if (foundVacancies != null) {
-            vacancyList.clear()
-            vacancyList.addAll(foundVacancies)
-            stateLiveData.postValue(SearchState.Content(vacancyList, vacancyList.size))
-            if (foundItems != null) {
-                pages = foundItems
-            }
+            vacanciesList.addAll(foundVacancies) // передаем надйненные + новая страница
+            Log.i("processResult", "foundVacancies  ${foundVacancies.map { it.name }}")
+            Log.i("processResult", "foundVacancies  ${foundVacancies.map { it.employer }}")
+            Log.i("processResult", "foundVacancies size ${foundVacancies.size}")
+            Log.i("processResult", "vacanciesList size ${vacanciesList.size}")
         }
-
         when {
             errorMessage != null -> {
                 stateLiveData.postValue(SearchState.Error(errorMessage))
                 setPlaceholder(PlaceholdersEnum.SHOW_NO_INTERNET)
             }
 
-            vacancyList.isEmpty() -> {
+            vacanciesList.isEmpty() -> {
                 stateLiveData.postValue(SearchState.Empty(getString(context, R.string.no_vacancy)))
                 setPlaceholder(PlaceholdersEnum.SHOW_NO_VACANCY)
 
@@ -96,7 +104,8 @@ class SearchViewModel(
 
             else -> {
                 setPlaceholder(PlaceholdersEnum.SHOW_RESULT)
-                stateLiveData.postValue(SearchState.Content(vacancyList, foundItems = foundItems))
+                stateLiveData.postValue(SearchState.Content(vacanciesList, foundItems = foundItems))
+                isNextPageLoading = false
             }
         }
     }
@@ -109,10 +118,11 @@ class SearchViewModel(
     }
 
     fun onNextPage() {
-        if (page == (pages/itemsPerPage + 1)) {
-            stateLiveData.postValue(SearchState.Loading)
+        if (page == maxPages) {
+            stateLiveData.postValue(SearchState.Loading)//тут надо подумать что добавить
         }
-        if (page < pages && !latestSearchText.isNullOrEmpty()) {
+        if (page < maxPages!! && !latestSearchText.isNullOrEmpty() && !isNextPageLoading) {
+            isNextPageLoading = true
             page += 1
             searchVacancy(latestSearchText!!, page)
         }
@@ -120,6 +130,5 @@ class SearchViewModel(
 
     companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
-        const val itemsPerPage: Int = 20
     }
 }
