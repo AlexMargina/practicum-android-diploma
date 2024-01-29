@@ -5,7 +5,6 @@ import ru.practicum.android.diploma.data.db.converter.VacancyConverter
 import ru.practicum.android.diploma.data.repository.FavouriteRepositoryImpl
 import ru.practicum.android.diploma.data.repository.SearchRepositoryImpl
 import ru.practicum.android.diploma.domain.api.SearchRepository
-import ru.practicum.android.diploma.data.repository.FavoriteRepositoryImpl
 import ru.practicum.android.diploma.domain.api.FavouriteRepository
 
 val repositoryModule = module {
@@ -17,7 +16,7 @@ val repositoryModule = module {
     single { VacancyConverter() }
 
     single<FavouriteRepository> {
-        FavoriteRepositoryImpl(get(), get())
+        FavouriteRepositoryImpl(get(), get())
     }
 
 }
