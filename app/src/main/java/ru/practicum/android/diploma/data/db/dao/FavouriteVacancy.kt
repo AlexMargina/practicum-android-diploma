@@ -7,20 +7,18 @@ import androidx.room.Query
 import ru.practicum.android.diploma.data.db.entity.FavouriteVacancyEntity
 
 @Dao
-interface FavouriteVacancy {
+interface FavouriteDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertFavouriteVacancy(vacancy: FavouriteVacancyEntity)
-
-    @Query("SELECT * FROM favourite_vacancy_table")
-    suspend fun getFavouriteVacancies(): List<FavouriteVacancyEntity>
-
-    @Query("SELECT * FROM favourite_vacancy_table  WHERE isFavourite=1 ORDER BY inDbDate DESC")
-    suspend fun getFavouriteVacanciesByTime(): List<FavouriteVacancyEntity>
-
-    @Query("SELECT * FROM favourite_vacancy_table WHERE isFavourite=1 AND vacancyId = :vacancyId")
-    suspend fun getFavoriteVacancy(vacancyId: String): List<FavouriteVacancyEntity>
+    @Insert(entity = FavouriteVacancyEntity::class, onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addFavourite(vacancy: FavouriteVacancyEntity)
 
     @Query("DELETE FROM favourite_vacancy_table WHERE isFavourite=1 AND vacancyId = :vacancyId")
-    suspend fun deleteFavoriteVacancy(vacancyId: String)
+    suspend fun deleteFavourite(vacancyId: String)
+
+    @Query("SELECT * FROM favourite_vacancy_table")
+    suspend fun getFavourites(): List<FavouriteVacancyEntity>
+
+    @Query("SELECT * FROM favourite_vacancy_table WHERE isFavourite=1 AND vacancyId = :vacancyId")
+    suspend fun getFavourite(vacancyId: String): List<FavouriteVacancyEntity>
 }
+
