@@ -38,7 +38,7 @@ class SearchViewModel(
 
     fun searchDebounce(changedText: String) {
         if (latestSearchText != changedText) {
-            vacanciesList.clear()//Очищаем список найденных при новом поиске
+            vacanciesList.clear() // Очищаем список найденных при новом поиске
             latestSearchText = changedText
             vacancySearchDebounce(changedText)
         }
@@ -71,8 +71,6 @@ class SearchViewModel(
                     .collect { pair ->
                         processResult(pair.first, pair.second, searchInteractor.foundItems)
                         maxPages = searchInteractor.pages
-                        Log.i("processResult", "searchVacancy Maxpages $maxPages ")
-                        Log.i("processResult", "searchVacancy foundItems ${searchInteractor.foundItems}")
 
                     }
 
@@ -85,10 +83,10 @@ class SearchViewModel(
         val vacancyList = mutableListOf<Vacancy>()
         if (foundVacancies != null) {
             vacanciesList.addAll(foundVacancies) // передаем надйненные + новая страница
-            Log.i("processResult", "foundVacancies  ${foundVacancies.map { it.name }}")
-            Log.i("processResult", "foundVacancies  ${foundVacancies.map { it.employer }}")
-            Log.i("processResult", "foundVacancies size ${foundVacancies.size}")
-            Log.i("processResult", "vacanciesList size ${vacanciesList.size}")
+            Log.i("processResult1", "foundVacancies  ${foundVacancies.map { it.name }}")
+            Log.i("processResult2", "foundVacancies  ${foundVacancies.map { it.employer }}")
+            Log.i("processResult3", "foundVacancies size ${foundVacancies.size}")
+            Log.i("processResult4", "vacanciesList size ${vacanciesList.size}")
         }
         when {
             errorMessage != null -> {
@@ -119,7 +117,7 @@ class SearchViewModel(
 
     fun onNextPage() {
         if (page == maxPages) {
-            stateLiveData.postValue(SearchState.Loading)//тут надо подумать что добавить
+            stateLiveData.postValue(SearchState.Loading) // какую-то логику тут надо оставить
         }
         if (page < maxPages!! && !latestSearchText.isNullOrEmpty() && !isNextPageLoading) {
             isNextPageLoading = true
