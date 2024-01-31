@@ -4,11 +4,10 @@ import kotlinx.coroutines.flow.Flow
 import ru.practicum.android.diploma.domain.models.Vacancy
 import ru.practicum.android.diploma.presentation.util.Resource
 
-interface SearchRepository {
+interface SearchInteractor {
     var vacancyCurrentPage: Int?
     var foundItems: Int?
     var pages: Int?
-    fun searchVacancies(request: Map<String, String>): Flow<Resource<List<Vacancy>>>
+    fun searchVacancies(request: Map<String, String>): Flow<Pair<List<Vacancy>?, String?>>
     suspend fun getDetails(id: String): Resource<Vacancy>
-
 }

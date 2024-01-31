@@ -8,7 +8,7 @@ import ru.practicum.android.diploma.domain.models.Vacancy
 
 class VacanciesAdapter(
     private val clickListener: (vacancy: Vacancy) -> Unit,
-    val vacancies: ArrayList<Vacancy>
+    var vacancies: ArrayList<Vacancy>
 ) : RecyclerView.Adapter<VacancyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VacancyViewHolder {
@@ -22,5 +22,9 @@ class VacanciesAdapter(
     override fun onBindViewHolder(holder: VacancyViewHolder, position: Int) {
         holder.bind(vacancies[position])
         holder.itemView.setOnClickListener { this@VacanciesAdapter.clickListener(vacancies[position]) }
+    }
+
+    fun interface ClickListener {
+        fun onClick(vacancy: Vacancy)
     }
 }

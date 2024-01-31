@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_24"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -84,9 +85,9 @@
             android:layout_marginTop="@dimen/dp_8"
             android:layout_marginRight="@dimen/dp_16"
             android:layout_marginBottom="@dimen/dp_8"
+            android:autofillHints="no"
             android:background="@drawable/search_background"
             android:backgroundTint="@color/yp_lightGray"
-            android:drawableEnd="@drawable/search_icon"
             android:fontFamily="@font/ys_display_regular"
             android:hint="@string/search_input"
             android:imeOptions="actionDone"
@@ -98,10 +99,21 @@
             android:singleLine="true"
             android:textColor="@color/yp_black"
             android:textColorHint="@color/yp_gray"
-            android:textSize="@dimen/sp_16"
-            android:autofillHints="no" />
-
+            android:textSize="@dimen/sp_16" />
     </FrameLayout>
+
+    <ImageView
+        android:id="@+id/ivClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/spacing_28dp"
+        android:contentDescription="@string/description"
+        android:src="@drawable/ic_search"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/searchStack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topBar" />
 
     <TextView
         android:id="@+id/foundResults"
@@ -128,19 +140,20 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="top"
         android:layout_marginTop="@dimen/dp_8"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/foundResults"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:itemCount="10" />
 
     <include
         layout="@layout/placeholder_item_blank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -180,7 +193,7 @@
         layout="@layout/placeholder_item_progress_bottom"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spacing_80dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
