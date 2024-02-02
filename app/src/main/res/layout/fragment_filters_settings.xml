@@ -6,12 +6,98 @@
     android:layout_height="match_parent"
     tools:context="ru.practicum.android.diploma.presentation.filters.FiltersSettingsFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        style="@style/HeaderStyle"
-        android:text="@string/filters_header"
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/size_8"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    </TextView>
+
+        <ImageView
+            android:id="@+id/iv_arrow_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_8"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/size_8"
+            android:src="@drawable/ic_back_arrow" />
+
+        <TextView
+            android:id="@+id/tv_header"
+            style="@style/HeaderStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/dp_8"
+            android:text="@string/filters_header" />
+    </LinearLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_area"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/industry_header"
+        app:layout_constraintEnd_toStartOf="@id/iv_arrow_forward_industry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/industry_header"
+            android:text="Сюда потом добавляем страну"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/iv_arrow_forward_area"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/size_8"
+        android:paddingEnd="@dimen/size_8"
+        android:src="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/til_industry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/til_industry" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_industry"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/industry_header"
+        app:layout_constraintEnd_toStartOf="@id/iv_arrow_forward_industry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_industry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:hint="@string/industry_header"
+            android:text="Сюда потом добавляем отрасль"
+            android:maxLines="1"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/iv_arrow_forward_industry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/size_8"
+        android:paddingEnd="@dimen/size_8"
+        android:src="@drawable/arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@+id/til_industry"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/til_industry" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
