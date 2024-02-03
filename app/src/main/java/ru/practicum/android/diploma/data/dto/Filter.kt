@@ -1,4 +1,4 @@
-package ru.practicum.android.diploma.domain.models
+package ru.practicum.android.diploma.data.dto
 
 data class Filter(
     val area: String?,

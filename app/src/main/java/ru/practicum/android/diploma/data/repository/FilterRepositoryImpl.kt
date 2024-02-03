@@ -1,8 +1,9 @@
 package ru.practicum.android.diploma.data.repository
 
+
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import ru.practicum.android.diploma.domain.models.Filter
+import ru.practicum.android.diploma.data.dto.Filter
 import ru.practicum.android.diploma.domain.api.FilterRepository
 
 const val FILTER_STORAGE = "filter_storage"
