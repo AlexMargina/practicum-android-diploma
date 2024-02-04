@@ -21,8 +21,8 @@ class RetrofitNetworkClient(
         if (!isConnected()) {
             return Response().apply { resultCode = -1 }
         }
-
         return withContext(Dispatchers.IO) {
+
             try {
                 val response = hhApi.search(request)
 
@@ -38,8 +38,9 @@ class RetrofitNetworkClient(
                         Response().apply { resultCode = response.code() }
                     }
                 }
-            } catch (e: UnknownHostException) {
-                Log.i(TAG, "$e")
+
+            } catch (hostException: UnknownHostException) {
+                Log.i(TAG, "$hostException")
                 Response().apply { resultCode = -1 }
             }
         }
