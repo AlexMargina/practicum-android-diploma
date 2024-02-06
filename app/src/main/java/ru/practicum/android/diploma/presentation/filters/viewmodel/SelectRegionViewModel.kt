@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.practicum.android.diploma.domain.api.FilterInteractor
+import ru.practicum.android.diploma.domain.api.RegionInteractor
 import ru.practicum.android.diploma.domain.models.Region
 import ru.practicum.android.diploma.presentation.filters.states.RegionSelectionState
 import ru.practicum.android.diploma.presentation.util.Resource
 
 class SelectRegionViewModel(
-    private val filtersInteractor: FilterInteractor,
+    private val regionInteractor: RegionInteractor,
 ) : ViewModel() {
 
     private val regionSelectionState = MutableLiveData<RegionSelectionState>()
@@ -22,7 +22,7 @@ class SelectRegionViewModel(
     fun getRegions(countryId: String) {
         regionSelectionState.value = RegionSelectionState.Loading
         viewModelScope.launch {
-            filtersInteractor.getRegions(countryId).collect { resource ->
+            regionInteractor.getRegions(countryId).collect { resource ->
                 processRegionResult(resource)
             }
         }
@@ -30,7 +30,7 @@ class SelectRegionViewModel(
 
     fun applyRegionFilter(region: Region) {
         viewModelScope.launch {
-            filtersInteractor.applyRegionFilter(region)
+            regionInteractor.applyRegionFilter(region)
             getRegions(region.countryId)
         }
     }
@@ -41,7 +41,7 @@ class SelectRegionViewModel(
 
     fun searchRegionByName(regionName: String) {
         viewModelScope.launch {
-            filtersInteractor.searchRegionByName(regionName).collect { resource ->
+            regionInteractor.searchRegionByName(regionName).collect { resource ->
                 processRegionResult(resource)
             }
         }

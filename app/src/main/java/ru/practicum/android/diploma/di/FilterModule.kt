@@ -16,9 +16,11 @@ import ru.practicum.android.diploma.domain.api.FilterInteractor
 import ru.practicum.android.diploma.domain.api.FilterRepository
 import ru.practicum.android.diploma.domain.api.IndustryInteractor
 import ru.practicum.android.diploma.domain.api.IndustryRepository
+import ru.practicum.android.diploma.domain.api.RegionInteractor
 import ru.practicum.android.diploma.domain.impl.AreaInteractorImpl
 import ru.practicum.android.diploma.domain.impl.FilterInteractorImpl
 import ru.practicum.android.diploma.domain.impl.IndustryInteractorImpl
+import ru.practicum.android.diploma.domain.impl.RegionInteractorImpl
 
 val filterModule = module {
 
@@ -56,5 +58,9 @@ val filterModule = module {
 
     single<FilterInteractor> {
         FilterInteractorImpl(filterRepository = get())
+    }
+
+    single<RegionInteractor> {
+        RegionInteractorImpl(regionRepository = get())
     }
 }

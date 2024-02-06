@@ -59,23 +59,23 @@ class SelectRegionFragment : Fragment() {
         viewModel.regionSelectionState().observe(viewLifecycleOwner) {
             when (it) {
                 RegionSelectionState.NoInternet -> {
-                    PlaceholdersRegionEnum.HIDE_ALL
+                    setPlaceholder(PlaceholdersRegionEnum.HIDE_ALL)
                 }
 
                 RegionSelectionState.NoData -> {
-                    PlaceholdersRegionEnum.SHOW_NO_REGION
+                    setPlaceholder(PlaceholdersRegionEnum.SHOW_NO_REGION)
                 }
 
                 RegionSelectionState.Loading -> {
-                    PlaceholdersRegionEnum.SHOW_PROGRESS_CENTER
+                    setPlaceholder(PlaceholdersRegionEnum.SHOW_PROGRESS_CENTER)
                 }
 
                 RegionSelectionState.Error -> {
-                    PlaceholdersRegionEnum.SHOW_NO_LIST
+                    setPlaceholder(PlaceholdersRegionEnum.SHOW_NO_LIST)
                 }
 
                 is RegionSelectionState.Success -> {
-                    PlaceholdersRegionEnum.SHOW_RESULT
+                    setPlaceholder(PlaceholdersRegionEnum.SHOW_RESULT)
                 }
             }
         }
