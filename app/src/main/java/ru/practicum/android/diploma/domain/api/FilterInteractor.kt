@@ -10,12 +10,13 @@ interface FilterInteractor {
     fun load(): Filter?
     fun write(filter: Filter)
     fun getCountries(): Flow<Resource<List<Country>>>
-    fun getRegions(countryId: String): Flow<Resource<List<Region>>>
     fun applyCountryFilter(country: Country)
+    fun getSelectedCountry(): Country
+    fun clearCountryFilter()
+    //
+    fun getRegions(countryId: String): Flow<Resource<List<Region>>>
     fun applyRegionFilter(region: Region)
     fun searchRegionByName(regionName: String): Flow<Resource<List<Region>>>
     fun getSelectedRegion(): Region
-    fun getSelectedCountry(): Country
-    fun clearCountryFilter()
     fun clearRegionFilter()
 }

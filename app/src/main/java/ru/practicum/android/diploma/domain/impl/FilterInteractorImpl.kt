@@ -12,47 +12,36 @@ class FilterInteractorImpl(private val filterRepository: FilterRepository) : Fil
     override fun load(): Filter? {
         return filterRepository.load()
     }
-
     override fun write(filter: Filter) {
         filterRepository.write(filter)
     }
-
     override fun getCountries(): Flow<Resource<List<Country>>> {
         TODO(NOT_IMPLEMENTED_YET)
     }
-
-    override fun getRegions(countryId: String): Flow<Resource<List<Region>>> {
-        TODO(NOT_IMPLEMENTED_YET)
-    }
-
     override fun applyCountryFilter(country: Country) {
         TODO(NOT_IMPLEMENTED_YET)
     }
-
-    override fun applyRegionFilter(region: Region) {
-        TODO(NOT_IMPLEMENTED_YET)
+    override fun getRegions(countryId: String): Flow<Resource<List<Region>>> {
+        return filterRepository.getRegions(countryId)
     }
-
-    override fun searchRegionByName(regionName: String): Flow<Resource<List<Region>>> {
-        TODO(NOT_IMPLEMENTED_YET)
-    }
-
-    override fun getSelectedRegion(): Region {
-        TODO(NOT_IMPLEMENTED_YET)
-    }
-
     override fun getSelectedCountry(): Country {
         TODO(NOT_IMPLEMENTED_YET)
     }
-
     override fun clearCountryFilter() {
         TODO(NOT_IMPLEMENTED_YET)
     }
-
-    override fun clearRegionFilter() {
-        TODO(NOT_IMPLEMENTED_YET)
+    override fun applyRegionFilter(region: Region) {
+        return filterRepository.applyRegionFilter(region)
     }
-
+    override fun searchRegionByName(regionName: String): Flow<Resource<List<Region>>> {
+        return filterRepository.searchRegionByName(regionName)
+    }
+    override fun getSelectedRegion(): Region {
+        return filterRepository.getSelectedRegion()
+    }
+    override fun clearRegionFilter() {
+        return filterRepository.clearRegionFilter()
+    }
     companion object {
         private const val NOT_IMPLEMENTED_YET = "Not yet implemented"
     }
