@@ -14,6 +14,8 @@ class SelectIndustryViewModel(
 ) : ViewModel() {
 
     private var selectedIndustry: Industry? = null
+    private var gettedIndustries = arrayListOf<Industry>()
+    private var filteredIndustries = arrayListOf<Industry>()
     private var stateLiveData = MutableLiveData<FilterIndustryStates>()
     fun getState(): LiveData<FilterIndustryStates> = stateLiveData
 
@@ -27,7 +29,14 @@ class SelectIndustryViewModel(
     fun getIndustriesByName(industry: String) {
         stateLiveData.postValue(FilterIndustryStates.Loading)
         viewModelScope.launch {
-            // industryInteractor
+            industryInteractor.getIndustries().first?.let { gettedIndustries.addAll(it) }
+            for (gettedIndustry in gettedIndustries) {
+                if (gettedIndustry.name.contains(industry, true)) {
+
+                    filteredIndustries.add(gettedIndustry)
+                    stateLiveData.postValue(filteredIndustries.let { FilterIndustryStates.Success(it)})
+                }
+            }
         }
     }
 

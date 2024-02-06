@@ -171,6 +171,6 @@ class SelectIndustryFragment : Fragment(R.layout.fragment_select_industry) {
     companion object {
         const val VISIBLE = View.VISIBLE
         const val GONE = View.GONE
-        const val SEARCH_DEBOUNCE_DELAY_MILS = 2000L
+        const val SEARCH_DEBOUNCE_DELAY_MILS = 1000L
     }
 }
