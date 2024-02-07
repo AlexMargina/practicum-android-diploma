@@ -211,7 +211,7 @@ class FiltersSettingsFragment : Fragment() {
         val textIsFill = binding.workplaceEditText.text.toString().isEmpty() &&
             binding.industryEditText.text.toString().isEmpty()
 
-        if (!(textIsFill  && !binding.checkboxNoSalary.isChecked && binding.salaryEditText.text.toString()
+        if (!(textIsFill && !binding.checkboxNoSalary.isChecked && binding.salaryEditText.text.toString()
                 .isEmpty())
         ) {
             binding.apply {
