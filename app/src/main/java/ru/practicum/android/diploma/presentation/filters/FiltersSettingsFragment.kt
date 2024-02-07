@@ -207,6 +207,25 @@ class FiltersSettingsFragment : Fragment() {
         }
     }
 
+    private fun renderBottonApply() {
+        val textIsFill = binding.workplaceEditText.text.toString().isEmpty() &&
+            binding.industryEditText.text.toString().isEmpty()
+
+        if (!(textIsFill  && !binding.checkboxNoSalary.isChecked && binding.salaryEditText.text.toString()
+                .isEmpty())
+        ) {
+            binding.apply {
+                bottonSettingsSave.visibility = View.VISIBLE
+                bottonSettingsReset.visibility = View.VISIBLE
+            }
+        } else {
+            binding.apply {
+                bottonSettingsSave.visibility = View.GONE
+                bottonSettingsReset.visibility = View.GONE
+            }
+        }
+    }
+
     private fun renderIndustryTextView(value: Industry?) {
         if (value != null) {
             (binding.industryEditText as TextView).text = value.name
@@ -235,8 +254,16 @@ class FiltersSettingsFragment : Fragment() {
     }
 
     private fun renderBottonReset(show: Boolean) {
+        val salaryIsFill = binding.salaryEditText.text?.isNotEmpty()
+        val countryIsFill = country?.isNotEmpty()
+        val areaIsFill = area?.isNotEmpty()
         if (show) {
-            binding.bottonSettingsReset.visibility = View.VISIBLE
+            if (salaryIsFill == true || countryIsFill == true || areaIsFill == true) {
+                binding.bottonSettingsReset.visibility = View.VISIBLE
+            } else {
+                binding.bottonSettingsReset.visibility = View.GONE
+            }
+
         } else {
             binding.bottonSettingsReset.visibility = View.GONE
         }
