@@ -34,10 +34,6 @@ class SearchViewModel(
     private var pages = 1
     private var filter: Filter? = null
 
-    init {
-        loadFilter()
-    }
-
     private fun setPlaceholder(placeholdersSearchEnum: PlaceholdersSearchEnum) {
         placeholderStatusMutable.value = placeholdersSearchEnum
     }
@@ -60,7 +56,6 @@ class SearchViewModel(
 
     fun loadFilter() {
         filter = loadFilterSettings()
-
     }
 
     private fun loadFilterSettings(): Filter? {

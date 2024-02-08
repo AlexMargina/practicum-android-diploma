@@ -28,7 +28,6 @@ class FiltersSettingsFragment : Fragment() {
     private val viewModel: FiltersSettingsViewModel by viewModel()
     private var country: String? = null
     private var area: String? = null
-    private val compareFilters = true
 
     override fun onCreateView(
 

@@ -263,6 +263,8 @@ class SearchFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.loadFilter()
+//        if (binding.searchInput.text.isNotEmpty()) newSearchText = binding.searchInput.text.toString()
+//        if (newSearchText.length>0) viewModel.searchDebounce(newSearchText)
         if (vacancies.size > 0) {
             setPlaceholder(PlaceholdersSearchEnum.SHOW_RESULT)
         } else {
