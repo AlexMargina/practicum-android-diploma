@@ -238,7 +238,7 @@ class FiltersSettingsFragment : Fragment() {
         binding.checkboxNoSalary.isChecked = isChecked
     }
 
-    private fun renderBottonReset(isChange: Boolean){
+    private fun renderBottonApply(isChange: Boolean) {
         val isAreaOrIndusrtyNotEmpty = binding.workplaceEditText.text.toString().isNotEmpty()
             || binding.industryEditText.text.toString().isNotEmpty()
         val isSalaryNotEmpty = binding.salaryEditText.text.toString().isNotEmpty()
@@ -249,9 +249,6 @@ class FiltersSettingsFragment : Fragment() {
         } else {
             binding.bottonSettingsReset.visibility = View.GONE
         }
-    }
-
-    private fun renderBottonApply(isChange: Boolean) {
         binding.bottonSettingsSave.isVisible = isChange
     }
 
