@@ -97,8 +97,6 @@ class SelectWorkplaceFragment : Fragment() {
                 binding.countryEditText.setText(state.country.name)
                 binding.filterSettingsApply.isVisible = true
                 country = state.country
-
-
             }
 
             else -> {}

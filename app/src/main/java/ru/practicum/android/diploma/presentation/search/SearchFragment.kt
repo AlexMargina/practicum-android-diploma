@@ -262,7 +262,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-
     private fun hideKeyBoard() {
         val inputMethodManager =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
