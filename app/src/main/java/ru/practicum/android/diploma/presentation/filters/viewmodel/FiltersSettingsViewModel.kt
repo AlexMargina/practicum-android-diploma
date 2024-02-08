@@ -39,6 +39,7 @@ class FiltersSettingsViewModel(
     fun loadFromShared() {
         filterSettings = filterInteractor.loadFilterSettings()
         writeToLiveData()
+        saveData()
     }
 
     private fun writeToLiveData() {
@@ -65,17 +66,17 @@ class FiltersSettingsViewModel(
         )
     }
 
-    private fun checkChangedFilters() {
+    fun checkChangedFilters() {
         var value = false
-        if (_industryData.value != null) value = true
-        if (_countryData.value != null) value = true
-        if (_areaData.value != null) value = true
-        if (_plainFiltersData.value != null) value = true
+        if (_industryData.value != filterSettings?.industry) value = true
+        if (_countryData.value != filterSettings?.country) value = true
+        if (_areaData.value != filterSettings?.area) value = true
+        if (_plainFiltersData.value != filterSettings?.plainFilterSettings) value = true
+
         _changedFilter.value = value
     }
 
     fun resetFilters() {
-        Log.d(TAG, "resetFilters")
         _industryData.value = null
         _countryData.value = null
         _areaData.value = null
