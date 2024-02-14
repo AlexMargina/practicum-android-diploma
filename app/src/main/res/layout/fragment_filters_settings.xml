@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
+            android:clickable="true"
             android:focusable="false"
             android:fontFamily="@font/ys_display_regular"
             android:maxLines="1"
@@ -111,6 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
+            android:clickable="true"
             android:focusable="false"
             android:fontFamily="@font/ys_display_regular"
             android:maxLines="1"
@@ -165,7 +167,6 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/salaryEditText"
-            style="style/TextBoxFilled"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/filter_ext_rounded"
@@ -226,7 +227,7 @@
         android:paddingVertical="@dimen/dp_20"
         android:text="@string/filter_settings_apply"
         android:textAllCaps="false"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="@color/yp_white"
         android:textSize="@dimen/sp_16"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/bottonSettingsReset"
