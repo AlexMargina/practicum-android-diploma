@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -32,6 +33,7 @@ import ru.practicum.android.diploma.presentation.util.debounce
 import ru.practicum.android.diploma.presentation.vacancy.VacancyFragment
 
 class SearchFragment : Fragment() {
+
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
     private var bottomNavigationView: BottomNavigationView? = null
@@ -145,12 +147,12 @@ class SearchFragment : Fragment() {
         binding.root.findViewById<ConstraintLayout>(R.id.placeholderProgressBottom).visibility = View.GONE
         binding.root.findViewById<ConstraintLayout>(R.id.placeholderProgressCenter).visibility = View.GONE
         when (placeholder) {
-            PlaceholdersSearchEnum.SHOW_BLANK -> {
+            PlaceholdersSearchEnum.SHOW_BLANK           -> {
                 binding.recyclerView.visibility = View.GONE
                 binding.root.findViewById<ConstraintLayout>(R.id.placeholderBlanc).visibility = View.VISIBLE
             }
 
-            PlaceholdersSearchEnum.SHOW_NO_INTERNET -> {
+            PlaceholdersSearchEnum.SHOW_NO_INTERNET     -> {
                 if (vacancies.size > 0) {
                     showSnackBar()
                     binding.recyclerView.visibility = View.VISIBLE
@@ -158,20 +160,25 @@ class SearchFragment : Fragment() {
                     binding.root.findViewById<ConstraintLayout>(R.id.placeholderNoInternet).visibility = View.VISIBLE
                 }
             }
-            PlaceholdersSearchEnum.SHOW_NO_VACANCY -> {
+
+            PlaceholdersSearchEnum.SHOW_NO_VACANCY      -> {
                 binding.root.findViewById<ConstraintLayout>(R.id.placeholderNoVacancy).visibility = View.VISIBLE
             }
+
             PlaceholdersSearchEnum.SHOW_PROGRESS_CENTER -> {
                 binding.root.findViewById<ConstraintLayout>(R.id.placeholderProgressCenter).visibility = View.VISIBLE
             }
+
             PlaceholdersSearchEnum.SHOW_PROGRESS_BOTTOM -> {
                 binding.root.findViewById<ConstraintLayout>(R.id.placeholderProgressBottom).visibility = View.VISIBLE
                 binding.recyclerView.visibility = View.VISIBLE
             }
-            PlaceholdersSearchEnum.SHOW_RESULT -> {
+
+            PlaceholdersSearchEnum.SHOW_RESULT          -> {
                 binding.recyclerView.visibility = View.VISIBLE
             }
-            PlaceholdersSearchEnum.HIDE_ALL -> {}
+
+            PlaceholdersSearchEnum.HIDE_ALL             -> {}
         }
     }
 
@@ -200,11 +207,11 @@ class SearchFragment : Fragment() {
                 if (binding.searchInput.text.isNotEmpty()) showFoundResultBar(foundVacancies)
             }
 
-            is SearchState.Empty -> {
+            is SearchState.Empty   -> {
                 showFoundResultBar(0)
             }
 
-            else -> {}
+            else                   -> {}
         }
         hideKeyBoard()
     }
@@ -216,7 +223,7 @@ class SearchFragment : Fragment() {
                 binding.recyclerView.visibility = View.GONE
             }
 
-            0 -> {
+            0    -> {
                 binding.foundResults.text = getString(R.string.status_no_results)
                 binding.foundResults.isVisible = true
             }
@@ -265,7 +272,10 @@ class SearchFragment : Fragment() {
         super.onResume()
         lastSearchText = ""
         newSearchText = ""
-        viewModel.loadFilter(searchText)
+        viewModel.loadFilter(searchText) { filter ->
+            Toast.makeText(
+                context, "Внимание! Установлен фильтр!", Toast.LENGTH_LONG)
+        }
         if (searchText != null) binding.searchInput.setText(searchText)
 
         if (vacancies.size > 0) {
@@ -277,6 +287,7 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
+
         private var searchText: String? = null
         const val CLICK_DEBOUNCE_DELAY = 300L
         const val FOUND_REPLACE_PATTERN = "[found]"

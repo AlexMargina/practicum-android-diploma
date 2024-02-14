@@ -1,6 +1,7 @@
 package ru.practicum.android.diploma.presentation.search.viewmodel
 
 import android.content.Context
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -39,7 +40,11 @@ class SearchViewModel(
     val isFilterOn get() = _isFilterOn
 
     init {
-        loadFilter(null)
+        loadFilter(null) { filter ->
+            Toast.makeText(
+                context, "Внимание! Установлен фильтр!", Toast.LENGTH_LONG
+            )
+        }
     }
 
     private fun setPlaceholder(placeholdersSearchEnum: PlaceholdersSearchEnum) {
@@ -62,10 +67,15 @@ class SearchViewModel(
         searchVacancy(changedText, 0)
     }
 
-    fun loadFilter(searchText: String?) {
+    fun loadFilter(searchText: String?, toast: (filter: Filter) -> Toast) {
         filter = loadFilterSettings()
+        if ((filter?.area?.isNotEmpty() == true) ||
+            (filter?.industry?.isNotEmpty() == true)
+        ) {
+            toast(filter!!)
+        }
         if (!searchText.isNullOrEmpty()) {
-            searchVacancy(searchText!!, 0)
+            searchVacancy(searchText, 0)
         }
     }
 
