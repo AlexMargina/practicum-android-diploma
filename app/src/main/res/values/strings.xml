@@ -25,7 +25,7 @@
     // Team
     <string name="team">Команда</string>
     <string name="done_by">Над приложением работали</string>
-    <string name="team_Semenov">Александр Семенов - лид</string>
+    <string name="team_Semenov">Александр Семенов</string>
     <string name="team_Zaharin">Виталий Захарин</string>
     <string name="team_Bugrov">Олег Бугров</string>
     <string name="team_Margina">Алексей Маржина</string>

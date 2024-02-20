@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -265,7 +266,7 @@ class SearchFragment : Fragment() {
         super.onResume()
         lastSearchText = ""
         newSearchText = ""
-        viewModel.loadFilter(searchText)
+
         if (searchText != null) binding.searchInput.setText(searchText)
 
         if (vacancies.size > 0) {
